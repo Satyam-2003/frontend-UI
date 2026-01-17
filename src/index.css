@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #000;
+}
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+
+  --color-panel: #0F172A;
+  --color-panelBorder: #1E293B;
+  --color-mutedText: #94A3B8;
+  --color-accent: #F97316;
+  --color-accentDark: #EA580C;
+  --color-warningBg: #1F2937;
+  --color-warningBorder: #7C2D12;
+}
+
+body {
+  font-family: var(--font-inter);
+}

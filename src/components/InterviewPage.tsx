@@ -1,6 +1,26 @@
 import { Camera, Mic, RotateCcw, LogOut, Sparkles } from "lucide-react";
+import { AILoadingDots } from "./AILoadingDots";
+import { PreviousQuestions } from "./PreviousQuestions";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const InterviewPage = () => {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (totalSeconds: number) => {
+    const mins = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+    const secs = String(totalSeconds % 60).padStart(2, "0");
+    return `${mins}:${secs}`;
+  };
+
   return (
     <div className="min-h-screen bg-linear-to-b from-[#070B14] to-[#05080F] text-white font-(--font-inter)">
       {/* HEADER */}
@@ -17,7 +37,7 @@ const InterviewPage = () => {
             ● Waiting for Response
           </span>
           <span className="rounded-full border border-white/10 px-3 py-1 text-xs">
-            00:15
+            {formatTime(seconds)}
           </span>
         </div>
       </header>
@@ -36,14 +56,37 @@ const InterviewPage = () => {
           <span className="absolute bottom-3 left-3 rounded bg-black/60 px-2 py-1 text-xs">
             You • mic
           </span>
+
+          <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-lg bg-black/60 px-2 py-1">
+            <Camera className="h-4 w-4 text-white/80 hover:text-white" />
+            <Mic className="h-4 w-4 text-white/80 hover:text-white" />
+          </div>
         </section>
 
         {/* CENTER – AI INTERVIEWER */}
-        <section className="relative flex min-h-65 items-center justify-center rounded-xl border border-cyan-500/20 bg-linear-to-br from-[#061A2E] to-[#0B0F2A]">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-linear-to-br from-sky-400 to-blue-600">
+        <section className="relative flex h-180 flex-col items-center justify-center rounded-xl border border-cyan-500/20 bg-linear-to-br from-[#061A2E] to-[#0B0F2A]">
+          {/* AI Icon */}
+          <motion.div
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2.2, repeat: Infinity }}
+            className="flex h-20 w-20 items-center justify-center rounded-full bg-linear-to-br from-sky-400 to-blue-600"
+          >
             <Sparkles className="h-8 w-8 text-white" />
-          </div>
+          </motion.div>
 
+          {/* Waveform */}
+          <AILoadingDots />
+
+          {/* Status Text */}
+          <motion.p
+            className="mt-2 text-xs tracking-wide text-cyan-400/80"
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 1.6, repeat: Infinity }}
+          >
+            Volkai AI is listening…
+          </motion.p>
+
+          {/* Label */}
           <span className="absolute bottom-3 left-3 rounded-md border border-cyan-500/30 bg-black/50 px-2 py-1 text-xs text-cyan-400">
             Volkai AI Interviewer
           </span>
@@ -72,31 +115,64 @@ const InterviewPage = () => {
           </div>
 
           {/* Upcoming */}
-          <div className="mt-4 space-y-3 text-xs text-white/40">
-            <p>PREVIOUS QUESTIONS</p>
-            <div className="rounded-md border border-white/10 p-2">
-              What motivated you to apply for this position?
-            </div>
-            <div className="rounded-md border border-white/10 p-2">
-              Describe a challenging project you worked on.
-            </div>
-          </div>
+          <PreviousQuestions />
         </aside>
       </main>
 
       {/* FOOTER CONTROLS */}
       <footer className="flex flex-wrap items-center justify-center gap-3 border-t border-white/10 px-6 py-4">
-        <button className="flex items-center gap-2 rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600">
+        <button
+          className="
+    flex items-center gap-2
+    rounded-xl
+    bg-orange-500
+    px-6 py-3
+    text-sm font-semibold text-white
+    shadow-lg shadow-orange-500/30
+    transition-all duration-200 ease-out
+    hover:scale-[1.03]
+    hover:bg-orange-600
+    active:scale-[0.97]
+  "
+        >
           <Mic className="h-4 w-4" />
           Start Recording Answer
         </button>
 
-        <button className="flex items-center gap-2 rounded-xl border border-white/20 px-5 py-3 text-sm hover:bg-white/5">
+        <button
+          className="
+    flex items-center gap-2
+    rounded-xl
+    border border-white/20
+    px-5 py-3
+    text-sm
+    shadow-md shadow-black/30
+    transition-all duration-200 ease-out
+    hover:scale-[1.03]
+    hover:border-white/40
+    hover:bg-white/10
+    active:scale-[0.97]
+  "
+        >
           <RotateCcw className="h-4 w-4" />
           Repeat Question
         </button>
 
-        <button className="flex items-center gap-2 rounded-xl border border-white/20 px-5 py-3 text-sm hover:bg-white/5">
+        <button
+          className="
+    flex items-center gap-2
+    rounded-xl
+    border border-white/20
+    px-5 py-3
+    text-sm
+    shadow-md shadow-black/30
+    transition-all duration-200 ease-out
+    hover:scale-[1.03]
+    hover:border-red-500/40
+    hover:bg-red-500/10
+    active:scale-[0.97]
+  "
+        >
           <LogOut className="h-4 w-4" />
           Exit Interview
         </button>

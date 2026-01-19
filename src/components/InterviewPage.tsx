@@ -25,9 +25,39 @@ const InterviewPage = () => {
     <div className="min-h-screen bg-linear-to-b from-[#070B14] to-[#05080F] text-white font-(--font-inter)">
       {/* HEADER */}
       <header className="flex flex-col gap-2 border-b border-white/10 px-6 py-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-lg font-semibold">AI Mock Interview</h1>
-          <p className="text-sm text-white/60">
+        <div className="relative space-y-1">
+          {/* Glow */}
+          <div className="pointer-events-none absolute -left-2 -top-1 h-8 w-40 rounded-full bg-orange-500/20 blur-xl" />
+
+          {/* Title Row */}
+          <div className="flex items-center gap-2">
+            {/* Animated Pulse Icon */}
+            <motion.div
+              className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500/20"
+              animate={{
+                boxShadow: [
+                  "0 0 0px rgba(249,115,22,0.0)",
+                  "0 0 12px rgba(249,115,22,0.6)",
+                  "0 0 0px rgba(249,115,22,0.0)",
+                ],
+              }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <Mic className="h-3.5 w-3.5 text-orange-400" />
+            </motion.div>
+
+            {/* Heading */}
+            <h1 className="bg-linear-to-r from-white to-white/70 bg-clip-text text-lg font-semibold tracking-tight text-transparent sm:text-xl">
+              AI Mock Interview
+            </h1>
+          </div>
+
+          {/* Subtitle */}
+          <p className="max-w-md text-xs leading-relaxed text-white/60 sm:text-sm">
             Real-time AI interviewer tailored to your job role
           </p>
         </div>
@@ -47,16 +77,46 @@ const InterviewPage = () => {
         {/* LEFT – CAMERA */}
         <section className="relative flex min-h-180 items-center justify-center rounded-xl border border-white/10 bg-linear-to-b from-[#1A2233] to-[#0E1524]">
           <div className="flex flex-col items-center gap-3 text-white/70">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500">
+            {/* Animated Camera */}
+            <motion.div
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500"
+              animate={{
+                boxShadow: [
+                  "0 0 0px rgba(249,115,22,0.0)",
+                  "0 0 16px rgba(249,115,22,0.6)",
+                  "0 0 0px rgba(249,115,22,0.0)",
+                ],
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
               <Camera className="h-6 w-6 text-white" />
-            </div>
-            <p className="text-sm">Camera feed will appear here</p>
+            </motion.div>
+
+            {/* Animated Text */}
+            <motion.p
+              className="text-sm"
+              // animate={{ opacity: [0.6, 1, 0.6], y: [0, -4, 0] }}
+              // transition={{
+              //   duration: 2.5,
+              //   repeat: Infinity,
+              //   ease: "easeInOut",
+              // }}
+            >
+              Camera feed will appear here
+            </motion.p>
           </div>
 
+          {/* Bottom-left label */}
           <span className="absolute bottom-3 left-3 rounded bg-black/60 px-2 py-1 text-xs">
             You • mic
           </span>
 
+          {/* Bottom-right controls */}
           <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-lg bg-black/60 px-2 py-1">
             <Camera className="h-4 w-4 text-white/80 hover:text-white" />
             <Mic className="h-4 w-4 text-white/80 hover:text-white" />

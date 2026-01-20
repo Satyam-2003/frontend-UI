@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-
 const bars = [12, 18, 24, 16, 28, 20, 14];
 
 export const AILoadingDots = () => {

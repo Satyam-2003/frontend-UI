@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Popup from "./components/Popup";
 import InterviewPage from "./components/InterviewPage";
+import Verification from "./components/Verification";
 
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Popup />} />
         <Route path="/interview" element={<InterviewPage />} />
+        <Route path="/verification" element={<Verification />} />
       </Routes>
     </div>
   );

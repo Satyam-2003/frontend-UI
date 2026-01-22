@@ -138,7 +138,7 @@ const Sidebar = () => {
     active?: boolean;
   }) => (
     <div
-      className={`group flex items-center gap-3 rounded-md px-3 py-2 text-sm cursor-pointer transition
+      className={`group flex items-center gap-3 rounded-md px-1 py-2 text-sm cursor-pointer transition
       ${
         active
           ? "bg-orange-500/10 text-white"

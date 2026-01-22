@@ -1,5 +1,6 @@
 import { ShieldCheck, Clock, CheckCircle2, XCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import VerificationQueue from "./VerificationQueue";
 
 const StatCard = ({
   icon,
@@ -35,9 +36,9 @@ const StatCard = ({
 
 export default function VerificationDashboard() {
   return (
-    <main className="flex-1 px-8 py-6">
+    <main className="flex-1 px-8 py-6 xl:px-10">
       {/* HEADER */}
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex items-center justify-between gap-6">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -59,10 +60,10 @@ export default function VerificationDashboard() {
 
         <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#0E1322] px-4 py-2">
           <span className="text-sm text-white/60">Hiring Mode:</span>
-          <button className="rounded-md bg-orange-500 px-4 py-1.5 text-sm font-medium">
+          <button className="rounded-md bg-orange-500 px-4 py-1.5 text-sm font-medium cursor-pointer">
             Direct Company
           </button>
-          <button className="rounded-md px-4 py-1.5 text-sm text-white/60 hover:bg-white/5">
+          <button className="rounded-md px-4 py-1.5 text-sm text-white/60 hover:bg-white/5 cursor-pointer">
             Manpower / Staffing
           </button>
 
@@ -131,7 +132,8 @@ export default function VerificationDashboard() {
       {/* BOTTOM CARDS */}
       <div className="mt-6 grid grid-cols-1 gap-5 xl:grid-cols-2">
         {/* Average TAT */}
-        <div className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6">
+        <motion.div whileHover={{ y: -6, scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }} className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/20">
               <Clock className="h-5 w-5 text-purple-400" />
@@ -154,10 +156,10 @@ export default function VerificationDashboard() {
 
             <p className="mt-2 text-xs text-white/40">Target: 7 days</p>
           </div>
-        </div>
+        </motion.div>
 
         {/* SLA */}
-        <div className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6">
+        <motion.div className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/20">
               <CheckCircle2 className="h-5 w-5 text-green-400" />
@@ -177,8 +179,9 @@ export default function VerificationDashboard() {
 
             <p className="mt-2 text-xs text-white/40">Target: 95%</p>
           </div>
-        </div>
+        </motion.div>
       </div>
+      <VerificationQueue/>
     </main>
   );
 }

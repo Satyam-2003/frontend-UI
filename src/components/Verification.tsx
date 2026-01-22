@@ -2,10 +2,16 @@ import Sidebar from "./Sidebar";
 import VerificationDashboard from "./VerificationDashboard";
 const Verification = () => {
   return (
-    <div className="flex min-h-screen bg-[#070B14] text-white">
+   <div className="flex h-screen w-screen overflow-hidden bg-[#070B14] text-white">
+      {/* Sidebar (NON-SCROLLING) */}
       <Sidebar />
-      <VerificationDashboard/>
+
+      {/* Main Content (ONLY THIS SCROLLS) */}
+      <div className="flex-1 overflow-y-auto">
+        <VerificationDashboard />
+      </div>
     </div>
+    
   );
 };
 

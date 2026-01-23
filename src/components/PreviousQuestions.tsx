@@ -32,7 +32,7 @@ const previousQuestions = [
 
 export function PreviousQuestions() {
   return (
-    <div className="mt-4 space-y-3 text-xs text-white/40">
+    <div className="mt-4 space-y-3 text-xs text-black/80">
       <p>PREVIOUS QUESTIONS</p>
 
       {previousQuestions.map((q, i) => (
@@ -45,9 +45,9 @@ export function PreviousQuestions() {
             delay: i * 0.08,
             ease: "easeOut",
           }}
-          className="rounded-md border border-white/10 p-2"
+          className="rounded-md border border-black/10 p-2"
         >
-          <p className="text-sm text-white/70">{q.question}</p>
+          <p className="text-sm text-black/70">{q.question}</p>
 
           <div className="mt-2 flex items-center gap-2">
             {/* Difficulty Badge */}
@@ -57,17 +57,19 @@ export function PreviousQuestions() {
                 q.color === "green"
                   ? "bg-green-500/20 text-green-400"
                   : q.color === "yellow"
-                  ? "bg-yellow-500/20 text-yellow-400"
-                  : "bg-red-500/20 text-red-400"
+                    ? "bg-yellow-500/20 text-yellow-400"
+                    : "bg-red-500/20 text-red-400"
               }`}
             >
               {q.difficulty}
             </span>
 
-            <span className="text-white/30">•</span>
+            <span className="text-black/30">•</span>
 
             {/* Category */}
-            <span className="text-[11px] text-sky-400">{q.category}</span>
+            <span className="text-[11px] text-sky-400 bg-sky-500/20 rounded-full px-2 py-0.5">
+              {q.category}
+            </span>
           </div>
         </motion.div>
       ))}

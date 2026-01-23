@@ -73,7 +73,7 @@ const InterviewPage = () => {
       </header>
 
       {/* MAIN GRID */}
-      <main className="grid gap-4 px-4 py-6 md:grid-cols-[1fr_1.4fr_0.9fr] md:px-6">
+      <main className="grid flex-1 gap-4 px-4 py-6 md:grid-cols-[1fr_1.4fr_0.9fr] md:px-6 overflow-hidden">
         {/* LEFT – CAMERA */}
         <section className="relative flex min-h-180 items-center justify-center rounded-xl border border-gray-400/20 bg-linear-to-b from-[#ffffff] to-[#edf2ff]">
           <div className="flex flex-col items-center gap-3 text-white/70">
@@ -112,12 +112,12 @@ const InterviewPage = () => {
           </div>
 
           {/* Bottom-left label */}
-          <span className="absolute bottom-3 left-3 rounded bg-black/60 text-white px-2 py-1 text-xs">
+          <span className="absolute bottom-4 left-3 rounded bg-black/60 text-white px-2 py-1 text-xs">
             You • mic
           </span>
 
           {/* Bottom-right controls */}
-          <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-lg bg-black/60 px-2 py-1">
+          <div className="absolute bottom-4 right-3 flex items-center gap-2 rounded-lg bg-black/60 px-2 py-1">
             <Camera className="h-4 w-4 text-white/80 hover:text-white" />
             <Mic className="h-4 w-4 text-white/80 hover:text-white" />
           </div>
@@ -147,7 +147,7 @@ const InterviewPage = () => {
           </motion.p>
 
           {/* Label */}
-          <span className="absolute bottom-3 left-3 rounded-md border border-blue-500/30 bg-black/50 px-2 py-1 text-xs text-white">
+          <span className="absolute bottom-4 left-3 rounded-md border border-blue-500/30 bg-black/50 px-2 py-1 text-xs text-white">
             Volkai AI Interviewer
           </span>
         </section>

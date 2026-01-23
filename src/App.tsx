@@ -5,7 +5,7 @@ import Verification from "./components/Verification";
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-black text-white font-(--font-inter)">
+    <div className="h-screen overflow-hidden bg-white text-slate-900 font-(--font-inter)">
       <Routes>
         <Route path="/" element={<Popup />} />
         <Route path="/interview" element={<InterviewPage />} />

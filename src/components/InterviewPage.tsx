@@ -22,7 +22,7 @@ const InterviewPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-[#070B14] to-[#05080F] text-white font-(--font-inter)">
+    <div className="flex h-screen flex-col overflow-hidden bg-white text-slate-900 font-(--font-inter)">
       {/* HEADER */}
       <header className="flex flex-col gap-2 border-b border-white/10 px-6 py-4 md:flex-row md:items-center md:justify-between">
         <div className="relative space-y-1">
@@ -51,13 +51,13 @@ const InterviewPage = () => {
             </motion.div>
 
             {/* Heading */}
-            <h1 className="bg-linear-to-r from-white to-white/70 bg-clip-text text-lg font-semibold tracking-tight text-transparent sm:text-xl">
+            <h1 className="bg-linear-to-r from-white to-white/70 bg-clip-text text-lg font-semibold tracking-tight text-black/80 sm:text-xl">
               AI Mock Interview
             </h1>
           </div>
 
           {/* Subtitle */}
-          <p className="max-w-md text-xs leading-relaxed text-white/60 sm:text-sm">
+          <p className="max-w-md text-xs leading-relaxed text-black/60 sm:text-sm">
             Real-time AI interviewer tailored to your job role
           </p>
         </div>
@@ -66,7 +66,7 @@ const InterviewPage = () => {
           <span className="rounded-full bg-orange-500/10 px-3 py-1 text-xs text-orange-400">
             ● Waiting for Response
           </span>
-          <span className="rounded-full border border-white/10 px-3 py-1 text-xs">
+          <span className="rounded-full border border-black/10 px-3 py-1 text-xs">
             {formatTime(seconds)}
           </span>
         </div>
@@ -75,7 +75,7 @@ const InterviewPage = () => {
       {/* MAIN GRID */}
       <main className="grid gap-4 px-4 py-6 md:grid-cols-[1fr_1.4fr_0.9fr] md:px-6">
         {/* LEFT – CAMERA */}
-        <section className="relative flex min-h-180 items-center justify-center rounded-xl border border-white/10 bg-linear-to-b from-[#1A2233] to-[#0E1524]">
+        <section className="relative flex min-h-180 items-center justify-center rounded-xl border border-gray-400/20 bg-linear-to-b from-[#ffffff] to-[#edf2ff]">
           <div className="flex flex-col items-center gap-3 text-white/70">
             {/* Animated Camera */}
             <motion.div
@@ -99,7 +99,7 @@ const InterviewPage = () => {
 
             {/* Animated Text */}
             <motion.p
-              className="text-sm"
+              className="text-sm text-black/70"
               // animate={{ opacity: [0.6, 1, 0.6], y: [0, -4, 0] }}
               // transition={{
               //   duration: 2.5,
@@ -112,7 +112,7 @@ const InterviewPage = () => {
           </div>
 
           {/* Bottom-left label */}
-          <span className="absolute bottom-3 left-3 rounded bg-black/60 px-2 py-1 text-xs">
+          <span className="absolute bottom-3 left-3 rounded bg-black/60 text-white px-2 py-1 text-xs">
             You • mic
           </span>
 
@@ -124,7 +124,7 @@ const InterviewPage = () => {
         </section>
 
         {/* CENTER – AI INTERVIEWER */}
-        <section className="relative flex h-180 flex-col items-center justify-center rounded-xl border border-cyan-500/20 bg-linear-to-br from-[#061A2E] to-[#0B0F2A]">
+        <section className="relative flex h-180 flex-col items-center justify-center rounded-xl border border-cyan-200/20 bg-linear-to-br from-[#ffffff] to-[#edf2ff]">
           {/* AI Icon */}
           <motion.div
             animate={{ scale: [1, 1.05, 1] }}
@@ -147,19 +147,21 @@ const InterviewPage = () => {
           </motion.p>
 
           {/* Label */}
-          <span className="absolute bottom-3 left-3 rounded-md border border-cyan-500/30 bg-black/50 px-2 py-1 text-xs text-cyan-400">
+          <span className="absolute bottom-3 left-3 rounded-md border border-blue-500/30 bg-black/50 px-2 py-1 text-xs text-white">
             Volkai AI Interviewer
           </span>
         </section>
 
         {/* RIGHT – QUESTIONS */}
-        <aside className="rounded-xl border border-white/10 bg-[#0B1220] p-4">
-          <h3 className="mb-4 text-sm font-semibold">Interview Questions</h3>
+        <aside className="rounded-xl border border-white/10 bg-linear-to-br from-[#ffffff] to-[#edf2ff] p-4">
+          <h3 className="mb-4 text-sm font-semibold text-black/80">
+            Interview Questions
+          </h3>
 
           {/* Current Question */}
           <div className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-3">
             <span className="text-xs text-orange-400">CURRENT QUESTION</span>
-            <p className="mt-2 text-sm">
+            <p className="mt-2 text-sm text-black/80">
               Tell me about yourself and your experience in software
               development.
             </p>

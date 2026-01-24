@@ -159,7 +159,8 @@ export default function VerificationDashboard() {
         </motion.div>
 
         {/* SLA */}
-        <motion.div className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6">
+        <motion.div whileHover={{ y: -6, scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }} className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/20">
               <CheckCircle2 className="h-5 w-5 text-green-400" />

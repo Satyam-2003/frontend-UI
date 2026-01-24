@@ -1,6 +1,7 @@
 import { ShieldCheck, Clock, CheckCircle2, XCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import VerificationQueue from "./VerificationQueue";
+import { useEffect, useState } from "react";
 
 const StatCard = ({
   icon,
@@ -35,6 +36,35 @@ const StatCard = ({
 );
 
 export default function VerificationDashboard() {
+  const [stats, setStats] = useState<null | {
+    totalVerifications: number;
+    pendingVerifications: number;
+    completedVerifications: number;
+    failedOrDiscrepancy: number;
+    averageTatDays: number;
+    slaComplianceRate: number;
+  }>(null);
+  // https://employment-verification-api-production.up.railway.app/api/dashboard/verifications
+
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const response = await fetch(
+          "https://employment-verification-api-production.up.railway.app/api/dashboard/verifications",
+        );
+
+        const result = await response.json();
+        console.log("API RESULT", result);
+
+        setStats(result);
+      } catch (error) {
+        console.error("Dashboard fetch failed", error);
+      }
+    };
+
+    fetchDashboard();
+  }, []);
+
   return (
     <main className="flex-1 px-8 py-6 xl:px-10">
       {/* HEADER */}
@@ -53,7 +83,8 @@ export default function VerificationDashboard() {
             </h1>
 
             <p className="mt-1 max-w-xl text-sm leading-relaxed text-white/55">
-              Track applicants, performance, and hiring insights—all from one place.
+              Track applicants, performance, and hiring insights—all from one
+              place.
             </p>
           </div>
         </motion.div>
@@ -81,7 +112,7 @@ export default function VerificationDashboard() {
         >
           <StatCard
             icon={<ShieldCheck className="h-5 w-5 text-sky-400" />}
-            value="248"
+            value={stats?.totalVerifications ?? "--"}
             label="Total Verifications"
             change="+12%"
             iconBg="bg-sky-500/20"
@@ -94,7 +125,7 @@ export default function VerificationDashboard() {
         >
           <StatCard
             icon={<Clock className="h-5 w-5 text-orange-400" />}
-            value="52"
+            value={stats?.pendingVerifications ?? "--"}
             label="Pending Verification"
             change="+5%"
             iconBg="bg-orange-500/20"
@@ -107,7 +138,7 @@ export default function VerificationDashboard() {
         >
           <StatCard
             icon={<CheckCircle2 className="h-5 w-5 text-green-400" />}
-            value="178"
+            value={stats?.completedVerifications ?? "--"}
             label="Completed"
             change="+8%"
             iconBg="bg-green-500/20"
@@ -120,7 +151,7 @@ export default function VerificationDashboard() {
         >
           <StatCard
             icon={<XCircle className="h-5 w-5 text-red-400" />}
-            value="18"
+            value={stats?.failedOrDiscrepancy ?? "--"}
             label="Failed / Discrepancy"
             change="-3%"
             changeColor="text-red-400"
@@ -132,8 +163,11 @@ export default function VerificationDashboard() {
       {/* BOTTOM CARDS */}
       <div className="mt-6 grid grid-cols-1 gap-5 xl:grid-cols-2">
         {/* Average TAT */}
-        <motion.div whileHover={{ y: -6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }} className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6">
+        <motion.div
+          whileHover={{ y: -6, scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6"
+        >
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/20">
               <Clock className="h-5 w-5 text-purple-400" />
@@ -146,12 +180,17 @@ export default function VerificationDashboard() {
 
           <div className="mt-6">
             <h2 className="text-3xl font-semibold">
-              4.2{" "}
+              {stats?.averageTatDays ?? "--"}{" "}
               <span className="text-sm font-normal text-white/50">days</span>
             </h2>
 
             <div className="mt-4 h-2 w-full rounded-full bg-white/10">
-              <div className="h-full w-[60%] rounded-full bg-purple-500" />
+              <div
+                className="h-full rounded-full bg-purple-500"
+                style={{
+                  width: `${Math.min((stats?.averageTatDays ?? 0) * 15, 100)}%`,
+                }}
+              />
             </div>
 
             <p className="mt-2 text-xs text-white/40">Target: 7 days</p>
@@ -159,8 +198,11 @@ export default function VerificationDashboard() {
         </motion.div>
 
         {/* SLA */}
-        <motion.div whileHover={{ y: -6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }} className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6">
+        <motion.div
+          whileHover={{ y: -6, scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6"
+        >
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/20">
               <CheckCircle2 className="h-5 w-5 text-green-400" />
@@ -172,17 +214,22 @@ export default function VerificationDashboard() {
           </div>
 
           <div className="mt-6">
-            <h2 className="text-3xl font-semibold">87%</h2>
+            <h2 className="text-3xl font-semibold">
+              {stats?.slaComplianceRate ?? "--"}%
+            </h2>
 
             <div className="mt-4 h-2 w-full rounded-full bg-white/10">
-              <div className="h-full w-[87%] rounded-full bg-green-500" />
+              <div
+                className="h-full rounded-full bg-green-500"
+                style={{ width: `${stats?.slaComplianceRate ?? 0}%` }}
+              />
             </div>
 
             <p className="mt-2 text-xs text-white/40">Target: 95%</p>
           </div>
         </motion.div>
       </div>
-      <VerificationQueue/>
+      <VerificationQueue />
     </main>
   );
 }

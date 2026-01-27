@@ -3,6 +3,24 @@ import { motion } from "framer-motion";
 import VerificationQueue from "./VerificationQueue";
 import { useEffect, useState } from "react";
 
+const Skeleton = ({ className }: { className: string }) => (
+  <div className={`animate-pulse rounded-md bg-white/10 ${className}`} />
+);
+
+const StatCardSkeleton = () => (
+  <div className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-5">
+    <div className="flex items-center justify-between">
+      <Skeleton className="h-10 w-10 rounded-lg" />
+      <Skeleton className="h-4 w-10" />
+    </div>
+
+    <div className="mt-4 space-y-2">
+      <Skeleton className="h-6 w-20" />
+      <Skeleton className="h-4 w-32" />
+    </div>
+  </div>
+);
+
 const StatCard = ({
   icon,
   value,
@@ -44,6 +62,8 @@ export default function VerificationDashboard() {
     averageTatDays: number;
     slaComplianceRate: number;
   }>(null);
+
+  const [loading, setLoading] = useState(true);
   // https://employment-verification-api-production.up.railway.app/api/dashboard/verifications
 
   useEffect(() => {
@@ -59,6 +79,8 @@ export default function VerificationDashboard() {
         setStats(result);
       } catch (error) {
         console.error("Dashboard fetch failed", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -106,128 +128,152 @@ export default function VerificationDashboard() {
 
       {/* TOP STATS */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-        <motion.div
-          whileHover={{ y: -6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
-          <StatCard
-            icon={<ShieldCheck className="h-5 w-5 text-sky-400" />}
-            value={stats?.totalVerifications ?? "--"}
-            label="Total Verifications"
-            change="+12%"
-            iconBg="bg-sky-500/20"
-          />
-        </motion.div>
+        {loading ? (
+          <>
+            <StatCardSkeleton />
+            <StatCardSkeleton />
+            <StatCardSkeleton />
+            <StatCardSkeleton />
+          </>
+        ) : (
+          <>
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <StatCard
+                icon={<ShieldCheck className="h-5 w-5 text-sky-400" />}
+                value={stats?.totalVerifications ?? "--"}
+                label="Total Verifications"
+                change="+12%"
+                iconBg="bg-sky-500/20"
+              />
+            </motion.div>
 
-        <motion.div
-          whileHover={{ y: -6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
-          <StatCard
-            icon={<Clock className="h-5 w-5 text-orange-400" />}
-            value={stats?.pendingVerifications ?? "--"}
-            label="Pending Verification"
-            change="+5%"
-            iconBg="bg-orange-500/20"
-          />
-        </motion.div>
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <StatCard
+                icon={<Clock className="h-5 w-5 text-orange-400" />}
+                value={stats?.pendingVerifications ?? "--"}
+                label="Pending Verification"
+                change="+5%"
+                iconBg="bg-orange-500/20"
+              />
+            </motion.div>
 
-        <motion.div
-          whileHover={{ y: -6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
-          <StatCard
-            icon={<CheckCircle2 className="h-5 w-5 text-green-400" />}
-            value={stats?.completedVerifications ?? "--"}
-            label="Completed"
-            change="+8%"
-            iconBg="bg-green-500/20"
-          />
-        </motion.div>
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <StatCard
+                icon={<CheckCircle2 className="h-5 w-5 text-green-400" />}
+                value={stats?.completedVerifications ?? "--"}
+                label="Completed"
+                change="+8%"
+                iconBg="bg-green-500/20"
+              />
+            </motion.div>
 
-        <motion.div
-          whileHover={{ y: -6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
-          <StatCard
-            icon={<XCircle className="h-5 w-5 text-red-400" />}
-            value={stats?.failedOrDiscrepancy ?? "--"}
-            label="Failed / Discrepancy"
-            change="-3%"
-            changeColor="text-red-400"
-            iconBg="bg-red-500/20"
-          />
-        </motion.div>
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <StatCard
+                icon={<XCircle className="h-5 w-5 text-red-400" />}
+                value={stats?.failedOrDiscrepancy ?? "--"}
+                label="Failed / Discrepancy"
+                change="-3%"
+                changeColor="text-red-400"
+                iconBg="bg-red-500/20"
+              />
+            </motion.div>
+          </>
+        )}
       </div>
 
       {/* BOTTOM CARDS */}
       <div className="mt-6 grid grid-cols-1 gap-5 xl:grid-cols-2">
         {/* Average TAT */}
-        <motion.div
-          whileHover={{ y: -6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6"
-        >
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/20">
-              <Clock className="h-5 w-5 text-purple-400" />
-            </div>
-            <div>
-              <h3 className="font-semibold">Average TAT</h3>
-              <p className="text-sm text-white/50">Turn Around Time</p>
-            </div>
-          </div>
+        {loading ? (
+          <>
+            <Skeleton className="h-[220px] rounded-xl border border-white/10" />
+            <Skeleton className="h-[220px] rounded-xl border border-white/10" />
+          </>
+        ) : (
+          <>
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/20">
+                  <Clock className="h-5 w-5 text-purple-400" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Average TAT</h3>
+                  <p className="text-sm text-white/50">Turn Around Time</p>
+                </div>
+              </div>
 
-          <div className="mt-6">
-            <h2 className="text-3xl font-semibold">
-              {stats?.averageTatDays ?? "--"}{" "}
-              <span className="text-sm font-normal text-white/50">days</span>
-            </h2>
+              <div className="mt-6">
+                <h2 className="text-3xl font-semibold">
+                  {stats?.averageTatDays ?? "--"}{" "}
+                  <span className="text-sm font-normal text-white/50">
+                    days
+                  </span>
+                </h2>
 
-            <div className="mt-4 h-2 w-full rounded-full bg-white/10">
-              <div
-                className="h-full rounded-full bg-purple-500"
-                style={{
-                  width: `${Math.min((stats?.averageTatDays ?? 0) * 15, 100)}%`,
-                }}
-              />
-            </div>
+                <div className="mt-4 h-2 w-full rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-purple-500"
+                    style={{
+                      width: `${Math.min((stats?.averageTatDays ?? 0) * 15, 100)}%`,
+                    }}
+                  />
+                </div>
 
-            <p className="mt-2 text-xs text-white/40">Target: 7 days</p>
-          </div>
-        </motion.div>
+                <p className="mt-2 text-xs text-white/40">Target: 7 days</p>
+              </div>
+            </motion.div>
 
-        {/* SLA */}
-        <motion.div
-          whileHover={{ y: -6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6"
-        >
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/20">
-              <CheckCircle2 className="h-5 w-5 text-green-400" />
-            </div>
-            <div>
-              <h3 className="font-semibold">SLA Compliance</h3>
-              <p className="text-sm text-white/50">On-time completion rate</p>
-            </div>
-          </div>
+            {/* SLA */}
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/20">
+                  <CheckCircle2 className="h-5 w-5 text-green-400" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">SLA Compliance</h3>
+                  <p className="text-sm text-white/50">
+                    On-time completion rate
+                  </p>
+                </div>
+              </div>
 
-          <div className="mt-6">
-            <h2 className="text-3xl font-semibold">
-              {stats?.slaComplianceRate ?? "--"}%
-            </h2>
+              <div className="mt-6">
+                <h2 className="text-3xl font-semibold">
+                  {stats?.slaComplianceRate ?? "--"}%
+                </h2>
 
-            <div className="mt-4 h-2 w-full rounded-full bg-white/10">
-              <div
-                className="h-full rounded-full bg-green-500"
-                style={{ width: `${stats?.slaComplianceRate ?? 0}%` }}
-              />
-            </div>
+                <div className="mt-4 h-2 w-full rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-green-500"
+                    style={{ width: `${stats?.slaComplianceRate ?? 0}%` }}
+                  />
+                </div>
 
-            <p className="mt-2 text-xs text-white/40">Target: 95%</p>
-          </div>
-        </motion.div>
+                <p className="mt-2 text-xs text-white/40">Target: 95%</p>
+              </div>
+            </motion.div>
+          </>
+        )}
       </div>
       <VerificationQueue />
     </main>

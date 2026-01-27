@@ -8,7 +8,7 @@ const Skeleton = ({ className }: { className: string }) => (
 );
 
 const StatCardSkeleton = () => (
-  <div className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-5">
+  <div className="rounded-xl border border-white/10 bg-linear-to-b from-[#0E1322] to-[#090E1A] p-5">
     <div className="flex items-center justify-between">
       <Skeleton className="h-10 w-10 rounded-lg" />
       <Skeleton className="h-4 w-10" />
@@ -198,15 +198,15 @@ export default function VerificationDashboard() {
         {/* Average TAT */}
         {loading ? (
           <>
-            <Skeleton className="h-[220px] rounded-xl border border-white/10" />
-            <Skeleton className="h-[220px] rounded-xl border border-white/10" />
+            <Skeleton className="h-55 rounded-xl border border-white/10" />
+            <Skeleton className="h-55 rounded-xl border border-white/10" />
           </>
         ) : (
           <>
             <motion.div
               whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6"
+              className="rounded-xl border border-white/10 bg-linear-to-b from-[#0E1322] to-[#090E1A] p-6"
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/20">
@@ -243,7 +243,7 @@ export default function VerificationDashboard() {
             <motion.div
               whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-6"
+              className="rounded-xl border border-white/10 bg-linear-to-b from-[#0E1322] to-[#090E1A] p-6"
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/20">

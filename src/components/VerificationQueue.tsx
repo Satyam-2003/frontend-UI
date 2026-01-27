@@ -1,8 +1,9 @@
-import { Search, Filter, Download } from "lucide-react";
+import { Search, Filter, Download, Eye } from "lucide-react";
 
 import { useEffect, useState } from "react";
 import { fetchCandidateQueue } from "../api/candidates";
 import type { Candidate } from "../types/candidates";
+import { timeAgo } from "../utils/time";
 
 const statusProgressColorMap = {
   completed: "bg-green-500",
@@ -186,11 +187,12 @@ export default function VerificationQueue() {
                   <td className="px-4 py-3 font-medium">{c.tatDays}d</td>
 
                   <td className="px-4 py-3 text-white/60">
-                    {new Date(c.lastUpdated).toLocaleString()}
+                    {timeAgo(c.lastUpdated)}
                   </td>
 
                   <td className="px-4 py-3">
                     <button className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-blue-400 hover:bg-white/5">
+                      <Eye className="h-4 w-4" />
                       View Details
                     </button>
                   </td>

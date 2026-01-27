@@ -36,7 +36,7 @@ const StatCard = ({
   changeColor?: string;
   iconBg: string;
 }) => (
-  <div className="rounded-xl border border-white/10 bg-gradient-to-b from-[#0E1322] to-[#090E1A] p-5">
+  <div className="rounded-xl border border-white/10 bg-linear-to-b from-[#0E1322] to-[#090E1A] p-5">
     <div className="flex items-center justify-between">
       <div
         className={`flex h-10 w-10 items-center justify-center rounded-lg ${iconBg}`}

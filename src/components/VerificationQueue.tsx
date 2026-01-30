@@ -1,9 +1,9 @@
 import { Search, Filter, Download, Eye } from "lucide-react";
-
 import { useEffect, useState } from "react";
 import { fetchCandidateQueue } from "../api/candidates";
 import type { Candidate } from "../types/candidates";
 import { timeAgo } from "../utils/time";
+import { useNavigate } from "react-router-dom";
 
 const statusProgressColorMap = {
   completed: "bg-green-500",
@@ -27,6 +27,12 @@ export default function VerificationQueue() {
     completed: 0,
     failed: 0,
   });
+
+  const navigate = useNavigate();
+
+  const handleOnClick = (candidateId: string) => {
+    navigate(`/verification/candidate-verification/${candidateId}`);
+  };
 
   useEffect(() => {
     async function loadQueue() {
@@ -191,7 +197,10 @@ export default function VerificationQueue() {
                   </td>
 
                   <td className="px-4 py-3">
-                    <button className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-blue-400 hover:bg-white/5">
+                    <button
+                      onClick={() => handleOnClick(c.id)}
+                      className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-blue-400 hover:bg-white/5"
+                    >
                       <Eye className="h-4 w-4" />
                       View Details
                     </button>

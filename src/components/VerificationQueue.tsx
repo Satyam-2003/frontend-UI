@@ -39,7 +39,7 @@ export default function VerificationQueue() {
   });
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
+  const [, setIsSearching] = useState(false);
 
   const navigate = useNavigate();
 
@@ -227,10 +227,10 @@ export default function VerificationQueue() {
                     </div>
                   </td>
 
-                  <td className="px-4 py-3 font-medium">{c.tatDays}d</td>
+                  <td className="px-4 py-3 font-medium">{c.tatDays ?? "--"}d</td>
 
                   <td className="px-4 py-3 text-white/60">
-                    {timeAgo(c.lastUpdated)}
+                    {c.lastUpdated ? timeAgo(c.lastUpdated) : "--"}
                   </td>
 
                   <td className="px-4 py-3">

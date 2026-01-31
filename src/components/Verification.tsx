@@ -1,17 +1,17 @@
+import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import VerificationDashboard from "./VerificationDashboard";
+
 const Verification = () => {
   return (
-   <div className="flex h-screen w-screen overflow-hidden bg-[#070B14] text-white">
-      {/* Sidebar (NON-SCROLLING) */}
+    <div className="flex h-screen w-screen overflow-hidden bg-[#070B14] text-white">
+      {/* Sidebar */}
       <Sidebar />
 
-      {/* Main Content (ONLY THIS SCROLLS) */}
+      {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
-        <VerificationDashboard />
+        <Outlet />
       </div>
     </div>
-    
   );
 };
 
